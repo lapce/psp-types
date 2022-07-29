@@ -1,5 +1,6 @@
 use std::path::PathBuf;
 
+pub use lsp_types::notification::Notification;
 pub use lsp_types::request::Request;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -20,16 +21,15 @@ pub struct DownloadFileRequestParams {
     pub exec: bool,
 }
 
-pub enum StartLspServerRequest {}
+pub enum StartLspServerNotification {}
 
-impl Request for StartLspServerRequest {
-    type Params = StartLspServerRequestParams;
-    type Result = ();
+impl Notification for StartLspServerNotification {
+    type Params = StartLspServerNotificationParams;
     const METHOD: &'static str = "host/start_lsp_server";
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct StartLspServerRequestParams {
+pub struct StartLspServerNotificationParams {
     pub exec_path: PathBuf,
     pub language_id: String,
     pub options: Option<Value>,
