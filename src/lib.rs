@@ -1,36 +1,21 @@
-use std::path::PathBuf;
-
+pub use lsp_types;
 pub use lsp_types::notification::Notification;
 pub use lsp_types::request::Request;
+use lsp_types::Url;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-pub enum DownloadFileRequest {}
+pub enum StartLspServer {}
 
-impl Request for DownloadFileRequest {
-    type Params = DownloadFileRequestParams;
-    type Result = ();
-    const METHOD: &'static str = "host/download_file";
+impl Notification for StartLspServer {
+    type Params = StartLspServerParams;
+    const METHOD: &'static str = "host/startLspServer";
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct DownloadFileRequestParams {
-    pub path: PathBuf,
-    pub url: String,
-    pub overwrite: bool,
-    pub exec: bool,
-}
-
-pub enum StartLspServerNotification {}
-
-impl Notification for StartLspServerNotification {
-    type Params = StartLspServerNotificationParams;
-    const METHOD: &'static str = "host/start_lsp_server";
-}
-
-#[derive(Deserialize, Serialize)]
-pub struct StartLspServerNotificationParams {
-    pub exec_path: PathBuf,
+#[serde(rename_all = "camelCase")]
+pub struct StartLspServerParams {
+    pub server_uri: Url,
     pub language_id: String,
     pub options: Option<Value>,
 }
