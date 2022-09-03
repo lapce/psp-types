@@ -16,6 +16,7 @@ impl Notification for StartLspServer {
 #[serde(rename_all = "camelCase")]
 pub struct StartLspServerParams {
     pub server_uri: Url,
+    pub server_args: Vec<String>,
     pub language_id: String,
     pub options: Option<Value>,
 }
