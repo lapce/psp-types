@@ -1,7 +1,7 @@
 pub use lsp_types;
 pub use lsp_types::notification::Notification;
 pub use lsp_types::request::Request;
-use lsp_types::Url;
+use lsp_types::{DocumentSelector, Url};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
@@ -17,6 +17,6 @@ impl Notification for StartLspServer {
 pub struct StartLspServerParams {
     pub server_uri: Url,
     pub server_args: Vec<String>,
-    pub language_id: String,
+    pub document_selector: DocumentSelector,
     pub options: Option<Value>,
 }
