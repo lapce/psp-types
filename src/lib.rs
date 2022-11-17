@@ -20,3 +20,24 @@ pub struct StartLspServerParams {
     pub document_selector: DocumentSelector,
     pub options: Option<Value>,
 }
+
+pub enum ExecuteProcess {}
+
+impl Request for ExecuteProcess {
+    type Params = ExecuteProcessParams;
+    type Result = ExecuteProcessResult;
+    const METHOD: &'static str = "host/executeProcess";
+}
+
+#[derive(Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ExecuteProcessParams {
+    pub program: String,
+    pub args: Vec<String>,
+}
+
+#[derive(Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ExecuteProcessResult {
+    pub success: bool,
+}
