@@ -1,6 +1,8 @@
 [package]
 name = "psp-types"
 version = "0.1.0"
+license = "Apache-2.0"
+description = "Types for interaction with plugin server protocol"
 edition = "2021"
 
 [dependencies]
