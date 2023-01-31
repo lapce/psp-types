@@ -40,4 +40,6 @@ pub struct ExecuteProcessParams {
 #[serde(rename_all = "camelCase")]
 pub struct ExecuteProcessResult {
     pub success: bool,
+    pub stdout: Vec<u8>,
+    pub stderr: Vec<u8>,
 }
