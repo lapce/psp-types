@@ -7,8 +7,9 @@ use serde_json::Value;
 
 pub enum StartLspServer {}
 
-impl Notification for StartLspServer {
+impl Request for StartLspServer {
     type Params = StartLspServerParams;
+    type Result = StartLspServerResult;
     const METHOD: &'static str = "host/startLspServer";
 }
 
@@ -19,6 +20,16 @@ pub struct StartLspServerParams {
     pub server_args: Vec<String>,
     pub document_selector: DocumentSelector,
     pub options: Option<Value>,
+}
+
+/// The id of a started Language Server.  
+/// This is used to reference the server in future requests.
+pub type LspId = u64;
+
+#[derive(Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct StartLspServerResult {
+    pub id: LspId,
 }
 
 pub enum ExecuteProcess {}
