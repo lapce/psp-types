@@ -32,6 +32,48 @@ pub struct StartLspServerResult {
     pub id: LspId,
 }
 
+pub struct SendLspNotification {}
+
+impl Notification for SendLspNotification {
+    type Params = SendLspNotificationParams;
+    const METHOD: &'static str = "host/sendLspNotification";
+}
+
+#[derive(Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SendLspNotificationParams {
+    /// Id of the LSP server the notification should be sent to
+    pub id: LspId,
+    pub method: String,
+    pub params: Value,
+}
+
+/// Send an LSP request to a started LSP server.  
+/// This does not include the `id` of the request, because that is handled by the client editor to
+/// avoid collisions.
+pub struct SendLspRequest {}
+
+impl Request for SendLspRequest {
+    type Params = SendLspRequestParams;
+    type Result = SendLspRequestResult;
+    const METHOD: &'static str = "host/sendLspRequest";
+}
+
+#[derive(Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SendLspRequestParams {
+    /// Id of the LSP server the notification should be sent to
+    pub id: LspId,
+    pub method: String,
+    pub params: Value,
+}
+
+#[derive(Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SendLspRequestResult {
+    pub result: Value,
+}
+
 pub enum ExecuteProcess {}
 
 impl Request for ExecuteProcess {
