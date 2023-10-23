@@ -96,3 +96,19 @@ pub struct ExecuteProcessResult {
     pub stdout: Option<Vec<u8>>,
     pub stderr: Option<Vec<u8>>,
 }
+
+pub enum RegisterDebuggerType {}
+
+impl Request for RegisterDebuggerType {
+    type Params = RegisterDebuggerTypeParams;
+    type Result = ();
+    const METHOD: &'static str = "host/registerDebuggerType";
+}
+
+#[derive(Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct RegisterDebuggerTypeParams {
+    pub debugger_type: String,
+    pub program: String,
+    pub args: Option<Vec<String>>,
+}
