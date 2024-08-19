@@ -1,7 +1,7 @@
 pub use lsp_types;
 pub use lsp_types::notification::Notification;
 pub use lsp_types::request::Request;
-use lsp_types::{DocumentSelector, Url};
+use lsp_types::{DocumentSelector, Uri};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
@@ -16,7 +16,7 @@ impl Request for StartLspServer {
 #[derive(Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct StartLspServerParams {
-    pub server_uri: Url,
+    pub server_uri: Uri,
     pub server_args: Vec<String>,
     pub document_selector: DocumentSelector,
     pub options: Option<Value>,
